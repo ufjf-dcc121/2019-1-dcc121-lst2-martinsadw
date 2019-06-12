@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Lista de Compras</title>
+        <style media="screen">
+            .wrapper {
+                display: flex;
+            }
+
+            .form, .products {
+                flex: 1;
+            }
+
+            .quant::before {
+                content: '(x ';
+            }
+            .quant::after {
+                content: ')';
+            }
+            .quant {
+                color: #666;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Lista de Compras</h1>
+        <div class="wrapper">
+            <div class="form">
+                Nome do produto: <input id="product-name" type="text" name="product-name"><br />
+                Quantidade: <input id="product-quant" type="text" name="product-quant"><br />
+                <button id="add" type="button" name="add">Adicionar</button>
+            </div>
+            <div class="products">
+                <ul id="product-list">
+                    <li>Produto 1 <span class="quant">4</span></li>
+                    <li>Outro produto 1 <span class="quant">2</span></li>
+                </ul>
+                <button id="clear" type="button" name="clear">Limpar</button>
+            </div>
+        </div>
+    </body>
+</html>
