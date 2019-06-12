@@ -9,6 +9,12 @@
             }
 
             .form, .products {
+                padding: 10px;
+            }
+            .form {
+                width: 200px;
+            }
+            .products {
                 flex: 1;
             }
 
@@ -26,11 +32,11 @@
     <body>
         <h1>Lista de Compras</h1>
         <div class="wrapper">
-            <div class="form">
-                Nome do produto: <input id="product-name" type="text" name="product-name"><br />
-                Quantidade: <input id="product-quant" type="number" name="product-quant"><br />
+            <form class="form" action="">
+                <label>Nome do produto: <input id="product-name" type="text" name="product-name"></label><br />
+                <label>Quantidade: <input id="product-quant" type="number" min="1" name="product-quant"></label><br />
                 <button id="add" type="button" name="add">Adicionar</button>
-            </div>
+            </form>
             <div class="products">
                 <ul id="product-list">
                 </ul>
@@ -52,7 +58,17 @@
                 if (!productNameElem.value || !productQuantElem.value)
                     return;
 
-                productList.push({name: productNameElem.value, quant: parseInt(productQuantElem.value)});
+                newProductName = productNameElem.value;
+                newProductQuant = parseInt(productQuantElem.value);
+
+                product = productList.find(function(elem) { return elem.name === newProductName });
+                if (product) {
+                    product.quant += newProductQuant;
+                }
+                else {
+                    productList.push({name: newProductName, quant: newProductQuant});
+                }
+
                 refreshList(productList);
             });
 
