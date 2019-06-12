@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Planejador de Excursão</title>
+        <style media="screen">
+            body {
+                background-color: #f5fffd;
+            }
+            .excursion {
+                background-color: #e9f2fd;
+                border-radius: 8px;
+                margin: 16px;
+                box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.5);
+            }
+
+            .create {
+                display: flex;
+                padding: 10px;
+                background-color: #bce0f5;
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+            }
+            .create .field {
+                display: flex;
+                align-items: center;
+            }
+            .create #new-person-name {
+                flex: 3;
+            }
+            .create #new-person-age {
+                flex: 1;
+            }
+
+            .create .field input {
+                flex: 1;
+                margin: 0 8px;
+                padding: 4px;
+                padding-left: 12px;
+            }
+
+            .create #register {
+                width: 100px;
+            }
+
+            .people-list {
+                display: flex;
+                border-top: 1px solid rgba(0, 0, 0, 0.5);
+            }
+
+            .adults, .students {
+                padding: 0 20px;
+                flex: 1;
+            }
+            .students {
+                border-left: 1px solid rgba(0, 0, 0, 0.2);
+            }
+
+            .people-list ul {
+                padding-left: 16px;
+            }
+
+            .people-list li {
+                padding: 4px 0;
+            }
+
+            .edit {
+                display: flex;
+                flex-direction: column;
+                padding: 10px;
+                background-color: #bce0f5;
+                border-radius: 8px;
+                margin-top: 4px;
+                margin-bottom: 12px;
+            }
+
+            .edit .field {
+                display: flex;
+                align-items: center;
+                padding-bottom: 6px;
+            }
+            .edit .field span {
+                text-align: right;
+                width: 50px;
+            }
+            .edit .field input {
+                flex: 1;
+                margin-left: 8px;
+                padding: 4px;
+                padding-left: 12px;
+            }
+
+            .edit .actions {
+                display: flex;
+                margin-top: 8px;
+                justify-content: flex-end;
+            }
+            .edit .actions button {
+                margin-left: 8px;
+                height: 27px;
+                width: 100px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Planejador de Excursão</h1>
+        <div class="excursion">
+            <form class="create" action="">
+                <label id="new-person-name" class="field">
+                    <span>Nome:</span>
+                    <input type="text" name="person-name" placeholder="Digite o nome aqui">
+                </label>
+                <label id="new-person-age" class="field">
+                    <span>Idade:</span>
+                    <input type="number" min="1" name="person-age" placeholder="Digite a idade aqui">
+                </label>
+                <button id="register" type="button" name="add">Cadastrar</button>
+            </form>
+            <div class="people-list">
+                <section class="adults">
+                    <h1>Adultos</h1>
+                    <ul id="adults-list">
+                        <li>Marcelo - 22</li>
+                        <li>Jõao - 31</li>
+                        <li>Diogo - 19</li>
+                        <li>Octávio - 18</li>
+                    </ul>
+                </section>
+                <section class="students">
+                    <h1>Estudantes</h1>
+                    <ul id="students-list">
+                        <li>Lia - 15</li>
+                        <li>
+                            Alguem - 17
+                            <form class="edit" action="">
+                                <input id="edit-person-id" type="hidden" name="person-id" value="1">
+                                <label id="edit-person-name" class="field">
+                                    <span>Nome:</span>
+                                    <input type="text" name="person-name" placeholder="Digite o nome aqui" value="Alguem">
+                                </label>
+                                <label id="edit-person-age" class="field">
+                                    <span>Idade:</span>
+                                    <input type="number" min="1" name="person-age" placeholder="Digite a idade aqui" value="17">
+                                </label>
+                                <div class="actions">
+                                    <button id="register" type="button" name="add">Exluir</button>
+                                    <button id="register" type="button" name="add">Atualizar</button>
+                                </div>
+                            </form>
+                        </li>
+                        <li>Paula - 17</li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </body>
+</html>
