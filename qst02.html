@@ -52,6 +52,22 @@
 
             var queueValues = [];
 
+            enqueueButton.addEventListener("click", function() {
+                if (!valueElem.value)
+                    return;
+
+                queueValues.push(parseInt(valueElem.value));
+                refreshQueue(queueValues);
+            });
+
+            dequeueButton.addEventListener("click", function() {
+                if (queueValues.length < 1)
+                    return;
+
+                queueValues.pop();
+                refreshQueue(queueValues);
+            });
+
             function refreshQueue(newQueue) {
                 while (queueValuesElem.firstChild)
                     queueValuesElem.removeChild(queueValuesElem.firstChild);
@@ -64,7 +80,7 @@
                 }
             }
 
-            refreshQueue([1, 3, 5, 7, 231, 5345]);
+            refreshQueue(queueValues);
         </script>
     </body>
 </html>
