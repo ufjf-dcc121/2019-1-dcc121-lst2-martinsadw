@@ -33,11 +33,43 @@
             </div>
             <div class="products">
                 <ul id="product-list">
-                    <li>Produto 1 <span class="quant">4</span></li>
-                    <li>Outro produto 1 <span class="quant">2</span></li>
                 </ul>
                 <button id="clear" type="button" name="clear">Limpar</button>
             </div>
         </div>
+
+        <script type="text/javascript">
+            var productNameElem = document.getElementById("product-name");
+            var productQuantElem = document.getElementById("product-quant");
+            var productListElem = document.getElementById("product-list");
+
+            var addButton = document.getElementById("add");
+            var clearButton = document.getElementById("clear");
+
+            function refreshList(newList) {
+                while (productListElem.firstChild)
+                    productListElem.removeChild(productListElem.firstChild);
+
+                for (let product of newList) {
+                    newProduct = document.createElement('li');
+                    newProduct.textContent = product.name + " ";
+
+                    newProductQuant = document.createElement('span');
+                    newProductQuant.textContent = product.quant;
+                    newProductQuant.classList.add("quant");
+                    newProduct.appendChild(newProductQuant);
+
+                    productListElem.appendChild(newProduct);
+                }
+            }
+
+            refreshList([
+                {name: 'asdasdad', quant: 1},
+                {name: 'gafdsgad', quant: 4},
+                {name: 'sfghstre', quant: 3},
+                {name: 'gdasgewr', quant: 1},
+                {name: 'jhoigfjh', quant: 6},
+            ]);
+        </script>
     </body>
 </html>
