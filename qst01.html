@@ -28,7 +28,7 @@
         <div class="wrapper">
             <div class="form">
                 Nome do produto: <input id="product-name" type="text" name="product-name"><br />
-                Quantidade: <input id="product-quant" type="text" name="product-quant"><br />
+                Quantidade: <input id="product-quant" type="number" name="product-quant"><br />
                 <button id="add" type="button" name="add">Adicionar</button>
             </div>
             <div class="products">
@@ -45,6 +45,21 @@
 
             var addButton = document.getElementById("add");
             var clearButton = document.getElementById("clear");
+
+            productList = [];
+
+            addButton.addEventListener("click", function() {
+                if (!productNameElem.value || !productQuantElem.value)
+                    return;
+
+                productList.push({name: productNameElem.value, quant: parseInt(productQuantElem.value)});
+                refreshList(productList);
+            });
+
+            clearButton.addEventListener("click", function() {
+                productList = [];
+                refreshList(productList);
+            });
 
             function refreshList(newList) {
                 while (productListElem.firstChild)
@@ -63,13 +78,7 @@
                 }
             }
 
-            refreshList([
-                {name: 'asdasdad', quant: 1},
-                {name: 'gafdsgad', quant: 4},
-                {name: 'sfghstre', quant: 3},
-                {name: 'gdasgewr', quant: 1},
-                {name: 'jhoigfjh', quant: 6},
-            ]);
+            refreshList(productList);
         </script>
     </body>
 </html>
