@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Estrutura de Pilha</title>
+        <style media="screen">
+            .wrapper {
+                display: flex;
+            }
+
+            .queue ul {
+                padding: 0;
+            }
+            .queue .queue-element {
+                display: inline-block;
+                width: 60px;
+                line-height: 60px;
+                margin: 2px;
+                text-align: center;
+                vertical-align: middle;
+                background-color: #c6b8ff;
+            }
+            .queue .queue-element:last-child {
+                background-color: #54b8ff;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Estrutura de Pilha</h1>
+        <form class="form" action="">
+            <input id="value" type="number" name="value" placeholder="Valor">
+            <button id="enqueue" type="button" name="enqueue">Empilhar</button>
+            <button id="dequeue" type="button" name="dequeue">Desempilhar</button>
+        </form>
+        <div class="queue">
+            <ul id="queue-values">
+                <li class="queue-element">1
+                </li><li class="queue-element">2
+                </li><li class="queue-element">3
+                </li><li class="queue-element">4
+                </li><li class="queue-element">5
+                </li>
+            </ul>
+        </div>
+    </body>
+</html>
