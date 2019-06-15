@@ -61,11 +61,16 @@
             }
 
             .people-list li {
-                padding: 4px;
+                padding: 6px;
+            }
+
+            .people-list li .desc {
+                border-radius: 4px;
+                padding: 6px 10px;
                 cursor: pointer
             }
-            .people-list li:hover {
-                background-color: rgba(0, 0, 0, 0.07);
+            .people-list li .desc:hover {
+                background-color: rgba(0, 0, 0, 0.1);
             }
 
             .edit {
@@ -74,8 +79,7 @@
                 padding: 10px;
                 background-color: #bce0f5;
                 border-radius: 8px;
-                margin-top: 4px;
-                margin-bottom: 12px;
+                margin-top: 8px;
             }
 
             .edit .field {
@@ -124,18 +128,18 @@
                 <section class="adults">
                     <h1>Adultos</h1>
                     <ul id="adults-list">
-                        <li>Marcelo - 22</li>
-                        <li>Jõao - 31</li>
-                        <li>Diogo - 19</li>
-                        <li>Octávio - 18</li>
+                        <li><span class="desc">Marcelo - 22</span></li>
+                        <li><span class="desc">Jõao - 31</span></li>
+                        <li><span class="desc">Diogo - 19</span></li>
+                        <li><span class="desc">Octávio - 18</span></li>
                     </ul>
                 </section>
                 <section class="students">
                     <h1>Estudantes</h1>
                     <ul id="students-list">
-                        <li>Lia - 15</li>
-                        <li>Alguem - 8</li>
-                        <li>Paula - 17</li>
+                        <li><span class="desc">Lia - 15</span></li>
+                        <li><span class="desc">Alguem - 8</span></li>
+                        <li><span class="desc">Paula - 17</span></li>
                     </ul>
                 </section>
             </div>
@@ -163,17 +167,17 @@
             var adultsListElem = document.getElementById("adults-list")
             var studentsListElem = document.getElementById("students-list")
 
-            var adultsList = {
-                0: {name: 'Marcelo', age: 22},
-                1: {name: 'Jõao', age: 31},
-                2: {name: 'Diogo', age: 19},
-                3: {name: 'Octávio', age: 18},
-            };
-            var studentsList = {
-                0: {name: "Lia", age: 15},
-                1: {name: "Alguem", age: 8},
-                2: {name: "Paula", age: 17},
-            };
+            var adultsList = [
+                {name: 'Marcelo', age: 22},
+                {name: 'Jõao', age: 31},
+                {name: 'Diogo', age: 19},
+                {name: 'Octávio', age: 18},
+            ];
+            var studentsList = [
+                {name: "Lia", age: 15},
+                {name: "Alguem", age: 8},
+                {name: "Paula", age: 17},
+            ];
 
             currentEditForm = null;
             function createEditForm(list, id)
@@ -190,7 +194,11 @@
                 clone.elements["person-age"].value = list[id].age;
 
                 clone.elements["delete"].addEventListener("click", function() {
-                    console.log("Delete " + list[id].name);
+                    list.splice(id, 1);
+
+                    refreshList(adultsListElem, adultsList);
+                    refreshList(studentsListElem, studentsList);
+                    currentEditForm = null;
                 })
 
                 clone.elements["update"].addEventListener("click", function() {
@@ -203,20 +211,24 @@
 
             function editFunction(elem, list, id) {
                 return function () {
-                    elem.appendChild(createEditForm(list, id));
+                    elem.parentNode.appendChild(createEditForm(list, id));
                 };
             }
             function refreshList(elem, newList) {
                 while (elem.firstChild)
                     elem.removeChild(elem.firstChild);
 
-                for (let id in newList) {
-                    newPerson = document.createElement('li');
-                    newPerson.textContent = newList[id].name + " - " + newList[id].age;
+                for (var i = 0; i < newList.length; ++i) {
+                    newPersonLi = document.createElement('li');
 
-                    newPerson.addEventListener("click", editFunction(newPerson, newList, id));
+                    newPerson = document.createElement('span');
+                    newPerson.classList.add("desc");
+                    newPerson.textContent = newList[i].name + " - " + newList[i].age;
+                    newPersonLi.appendChild(newPerson);
 
-                    elem.appendChild(newPerson);
+                    newPerson.addEventListener("click", editFunction(newPerson, newList, i));
+
+                    elem.appendChild(newPersonLi);
                 }
             }
 
