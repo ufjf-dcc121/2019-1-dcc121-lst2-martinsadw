@@ -198,11 +198,29 @@
 
                     refreshList(adultsListElem, adultsList);
                     refreshList(studentsListElem, studentsList);
-                    currentEditForm = null;
                 })
 
                 clone.elements["update"].addEventListener("click", function() {
-                    console.log("Update " + list[id].name);
+                    person = list[id];
+
+                    newName = currentEditForm.elements["person-name"].value;
+                    newAge = parseInt(currentEditForm.elements["person-age"].value);
+
+                    if (person.age < 18 && newAge >= 18) {
+                        list.splice(id, 1);
+                        adultsList.push({name: newName, age: newAge});
+                    }
+                    else if (person.age >= 18 && newAge < 18) {
+                        list.splice(id, 1);
+                        studentsList.push({name: newName, age: newAge});
+                    }
+                    else {
+                        person.name = newName;
+                        person.age = newAge;
+                    }
+
+                    refreshList(adultsListElem, adultsList);
+                    refreshList(studentsListElem, studentsList);
                 })
 
                 currentEditForm = clone;
@@ -215,6 +233,8 @@
                 };
             }
             function refreshList(elem, newList) {
+                currentEditForm = null;
+
                 while (elem.firstChild)
                     elem.removeChild(elem.firstChild);
 
@@ -234,10 +254,6 @@
 
             refreshList(adultsListElem, adultsList);
             refreshList(studentsListElem, studentsList);
-
-            studentsListElem.children[1].appendChild(createEditForm(studentsList, 1));
-            // document.body.appendChild(createEditForm(studentsList, 1));
-            // document.body.appendChild(createEditForm(studentsList, 2));
         </script>
     </body>
 </html>
