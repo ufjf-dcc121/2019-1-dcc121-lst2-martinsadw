@@ -61,7 +61,11 @@
             }
 
             .people-list li {
-                padding: 4px 0;
+                padding: 4px;
+                cursor: pointer
+            }
+            .people-list li:hover {
+                background-color: rgba(0, 0, 0, 0.07);
             }
 
             .edit {
@@ -172,7 +176,7 @@
             };
 
             currentEditForm = null;
-            function createEditForm(id, list)
+            function createEditForm(list, id)
             {
                 if (currentEditForm)
                     currentEditForm.remove();
@@ -197,9 +201,31 @@
                 return clone;
             }
 
-            studentsListElem.children[1].appendChild(createEditForm(1, studentsList));
-            // document.body.appendChild(createEditForm(1, studentsList));
-            // document.body.appendChild(createEditForm(2, studentsList));
+            function editFunction(elem, list, id) {
+                return function () {
+                    elem.appendChild(createEditForm(list, id));
+                };
+            }
+            function refreshList(elem, newList) {
+                while (elem.firstChild)
+                    elem.removeChild(elem.firstChild);
+
+                for (let id in newList) {
+                    newPerson = document.createElement('li');
+                    newPerson.textContent = newList[id].name + " - " + newList[id].age;
+
+                    newPerson.addEventListener("click", editFunction(newPerson, newList, id));
+
+                    elem.appendChild(newPerson);
+                }
+            }
+
+            refreshList(adultsListElem, adultsList);
+            refreshList(studentsListElem, studentsList);
+
+            studentsListElem.children[1].appendChild(createEditForm(studentsList, 1));
+            // document.body.appendChild(createEditForm(studentsList, 1));
+            // document.body.appendChild(createEditForm(studentsList, 2));
         </script>
     </body>
 </html>
