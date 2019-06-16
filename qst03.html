@@ -116,13 +116,13 @@
             <form class="create" action="">
                 <label id="new-person-name" class="field">
                     <span>Nome:</span>
-                    <input type="text" name="person-name" placeholder="Digite o nome aqui">
+                    <input id="new-person-name-input" type="text" name="person-name" placeholder="Digite o nome aqui">
                 </label>
                 <label id="new-person-age" class="field">
                     <span>Idade:</span>
-                    <input type="number" min="1" name="person-age" placeholder="Digite a idade aqui">
+                    <input id="new-person-age-input" type="number" min="1" name="person-age" placeholder="Digite a idade aqui">
                 </label>
-                <button id="register" type="button" name="add">Cadastrar</button>
+                <button id="register" type="button" name="register">Cadastrar</button>
             </form>
             <div class="people-list">
                 <section class="adults">
@@ -164,6 +164,10 @@
         </template>
 
         <script type="text/javascript">
+            var newNameElem = document.getElementById("new-person-name-input")
+            var newAgeElem = document.getElementById("new-person-age-input")
+            var registerButtonElem = document.getElementById("register")
+
             var adultsListElem = document.getElementById("adults-list")
             var studentsListElem = document.getElementById("students-list")
 
@@ -198,7 +202,7 @@
 
                     refreshList(adultsListElem, adultsList);
                     refreshList(studentsListElem, studentsList);
-                })
+                });
 
                 clone.elements["update"].addEventListener("click", function() {
                     person = list[id];
@@ -221,11 +225,28 @@
 
                     refreshList(adultsListElem, adultsList);
                     refreshList(studentsListElem, studentsList);
-                })
+                });
 
                 currentEditForm = clone;
                 return clone;
             }
+
+            registerButtonElem.addEventListener("click", function() {
+                newName = newNameElem.value;
+                newAge = parseInt(newAgeElem.value);
+
+                if (newAge >= 18) {
+                    adultsList.push({name: newName, age: newAge});
+                    refreshList(adultsListElem, adultsList);
+                }
+                else {
+                    studentsList.push({name: newName, age: newAge});
+                    refreshList(studentsListElem, studentsList);
+                }
+
+                newNameElem.value = "";
+                newAgeElem.value = "";
+            });
 
             function editFunction(elem, list, id) {
                 return function () {
