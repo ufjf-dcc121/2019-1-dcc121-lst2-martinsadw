@@ -25,10 +25,10 @@
                 display: flex;
                 align-items: center;
             }
-            .create #new-person-name {
+            .create .new-person-name {
                 flex: 3;
             }
-            .create #new-person-age {
+            .create .new-person-age {
                 flex: 1;
             }
 
@@ -113,16 +113,16 @@
     <body>
         <h1>Planejador de Excursão</h1>
         <div class="excursion">
-            <form class="create" action="">
-                <label id="new-person-name" class="field">
+            <form id="create" class="create" action="">
+                <label class="field new-person-name">
                     <span>Nome:</span>
-                    <input id="new-person-name-input" type="text" name="person-name" placeholder="Digite o nome aqui">
+                    <input type="text" name="person-name" placeholder="Digite o nome aqui">
                 </label>
-                <label id="new-person-age" class="field">
+                <label class="field new-person-age">
                     <span>Idade:</span>
-                    <input id="new-person-age-input" type="number" min="1" name="person-age" placeholder="Digite a idade aqui">
+                    <input type="number" min="1" name="person-age" placeholder="Digite a idade aqui">
                 </label>
-                <button id="register" type="button" name="register">Cadastrar</button>
+                <input type="submit" id="register" type="button" name="register" value="Cadastrar">
             </form>
             <div class="people-list">
                 <section class="adults">
@@ -164,10 +164,7 @@
         </template>
 
         <script type="text/javascript">
-            var newNameElem = document.getElementById("new-person-name-input")
-            var newAgeElem = document.getElementById("new-person-age-input")
-            var registerButtonElem = document.getElementById("register")
-
+            var registerFormElem = document.getElementById("create")
             var adultsListElem = document.getElementById("adults-list")
             var studentsListElem = document.getElementById("students-list")
 
@@ -231,9 +228,13 @@
                 return clone;
             }
 
-            registerButtonElem.addEventListener("click", function() {
-                newName = newNameElem.value;
-                newAge = parseInt(newAgeElem.value);
+            registerFormElem.addEventListener("submit", function(e) {
+                e.preventDefault();
+
+                form = e.target;
+
+                newName = form.elements["person-name"].value;
+                newAge = parseInt(form.elements["person-age"].value);
 
                 if (newAge >= 18) {
                     adultsList.push({name: newName, age: newAge});
@@ -244,8 +245,8 @@
                     refreshList(studentsListElem, studentsList);
                 }
 
-                newNameElem.value = "";
-                newAgeElem.value = "";
+                form.elements["person-name"].value = "";
+                form.elements["person-age"].value = "";
             });
 
             function editFunction(elem, list, id) {
