@@ -8,10 +8,10 @@
                 display: flex;
             }
 
-            .queue ol {
+            .stack ol {
                 padding: 0;
             }
-            .queue .queue-element {
+            .stack .stack-element {
                 display: inline-block;
                 width: 60px;
                 line-height: 60px;
@@ -20,7 +20,7 @@
                 vertical-align: middle;
                 background-color: #c6b8ff;
             }
-            .queue .queue-element:last-child {
+            .stack .stack-element:last-child {
                 background-color: #54b8ff;
             }
         </style>
@@ -29,58 +29,58 @@
         <h1>Estrutura de Pilha</h1>
         <form class="form" action="">
             <input id="value" type="number" name="value" placeholder="Valor">
-            <button id="enqueue" type="button" name="enqueue">Empilhar</button>
-            <button id="dequeue" type="button" name="dequeue">Desempilhar</button>
+            <button id="push" type="button" name="push">Empilhar</button>
+            <button id="pop" type="button" name="pop">Desempilhar</button>
         </form>
-        <div class="queue">
-            <ol id="queue-values">
-                <li class="queue-element">1
-                </li><li class="queue-element">2
-                </li><li class="queue-element">3
-                </li><li class="queue-element">4
-                </li><li class="queue-element">5
+        <div class="stack">
+            <ol id="stack-values">
+                <li class="stack-element">1
+                </li><li class="stack-element">2
+                </li><li class="stack-element">3
+                </li><li class="stack-element">4
+                </li><li class="stack-element">5
                 </li>
             </ol>
         </div>
 
         <script type="text/javascript">
             var valueElem = document.getElementById("value");
-            var queueValuesElem = document.getElementById("queue-values");
+            var stackValuesElem = document.getElementById("stack-values");
 
-            var enqueueButton = document.getElementById("enqueue");
-            var dequeueButton = document.getElementById("dequeue");
+            var pushButton = document.getElementById("push");
+            var popButton = document.getElementById("pop");
 
-            var queueValues = [];
+            var stackValues = [];
 
-            enqueueButton.addEventListener("click", function() {
+            pushButton.addEventListener("click", function() {
                 if (!valueElem.value)
                     return;
 
-                queueValues.push(parseInt(valueElem.value));
-                refreshQueue(queueValues);
+                stackValues.push(parseInt(valueElem.value));
+                refreshQueue(stackValues);
             });
 
-            dequeueButton.addEventListener("click", function() {
-                if (queueValues.length < 1)
+            popButton.addEventListener("click", function() {
+                if (stackValues.length < 1)
                     return;
 
-                queueValues.pop();
-                refreshQueue(queueValues);
+                stackValues.pop();
+                refreshQueue(stackValues);
             });
 
             function refreshQueue(newQueue) {
-                while (queueValuesElem.firstChild)
-                    queueValuesElem.removeChild(queueValuesElem.firstChild);
+                while (stackValuesElem.firstChild)
+                    stackValuesElem.removeChild(stackValuesElem.firstChild);
 
                 for (let value of newQueue) {
                     newValue = document.createElement('li');
                     newValue.textContent = value;
-                    newValue.classList.add("queue-element");
-                    queueValuesElem.appendChild(newValue);
+                    newValue.classList.add("stack-element");
+                    stackValuesElem.appendChild(newValue);
                 }
             }
 
-            refreshQueue(queueValues);
+            refreshQueue(stackValues);
         </script>
     </body>
 </html>
