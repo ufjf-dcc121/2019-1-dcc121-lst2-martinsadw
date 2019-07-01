@@ -41,28 +41,28 @@
     </head>
     <body>
         <h1>Organização de Animais</h1>
-        <form action="">
+        <form id="form" action="">
             <label>
                 Animal:
-                <input type="text" name="animal" id="animal">
+                <input type="text" name="animal">
             </label><br />
             <label>
                 Altura:
-                <input type="number" name="height" id="height">
+                <input type="number" name="height">
             </label><br />
             <label>
                 Peso:
-                <input type="number" name="weight" id="weight">
+                <input type="number" name="weight">
             </label><br />
             <label>
                 Velocidade:
-                <input type="number" name="speed" id="speed">
+                <input type="number" name="speed">
             </label><br />
             <label>
                 Idade máxima:
-                <input type="Number" name="age" id="age">
+                <input type="Number" name="age">
             </label><br />
-            <input type="submit" name="create" id="create">
+            <input type="submit" name="create">
         </form>
         <table>
             <caption>Características dos animais</caption>
@@ -75,7 +75,7 @@
                     <th>Idade máxima</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="animals">
             </tbody>
             <tfoot>
                 <tr>
@@ -92,5 +92,46 @@
         <p>O animal mais veloz é <span class="fastest"></span></p>
         <p>O animal mais longevo é <span class="longest"></span></p>
         <p>Existem <span></span> acima da média de peso</p>
+        <script type="text/javascript">
+            var animalsList = [];
+
+            var animalsElem = document.getElementById("animals");
+            var form = document.getElementById("form");
+            form.addEventListener("submit", function(e) {
+                e.preventDefault();
+                var newAnimal = {
+                    "animal": form.elements["animal"].value,
+                    "height": form.elements["height"].value,
+                    "weight": form.elements["weight"].value,
+                    "speed": form.elements["speed"].value,
+                    "age": form.elements["age"].value,
+                }
+                animalsList.push(newAnimal);
+
+                var newAnimalTr = document.createElement("tr");
+
+                var newAnimalName = document.createElement("td");
+                newAnimalName.textContent = newAnimal.animal;
+                newAnimalTr.appendChild(newAnimalName);
+
+                var newAnimalHeight = document.createElement("td");
+                newAnimalHeight.textContent = newAnimal.height;
+                newAnimalTr.appendChild(newAnimalHeight);
+
+                var newAnimalWeight = document.createElement("td");
+                newAnimalWeight.textContent = newAnimal.weight;
+                newAnimalTr.appendChild(newAnimalWeight);
+
+                var newAnimalSpeed = document.createElement("td");
+                newAnimalSpeed.textContent = newAnimal.speed;
+                newAnimalTr.appendChild(newAnimalSpeed);
+
+                var newAnimalAge = document.createElement("td");
+                newAnimalAge.textContent = newAnimal.age;
+                newAnimalTr.appendChild(newAnimalAge);
+
+                animalsElem.appendChild(newAnimalTr);
+            });
+        </script>
     </body>
 </html>
