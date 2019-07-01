@@ -48,19 +48,19 @@
             </label><br />
             <label>
                 Altura:
-                <input type="number" name="height">
+                <input type="number" name="height" step="any" min="0">
             </label><br />
             <label>
                 Peso:
-                <input type="number" name="weight">
+                <input type="number" name="weight" step="any" min="0">
             </label><br />
             <label>
                 Velocidade:
-                <input type="number" name="speed">
+                <input type="number" name="speed" step="any" min="0">
             </label><br />
             <label>
                 Idade máxima:
-                <input type="Number" name="age">
+                <input type="number" name="age" min="0">
             </label><br />
             <input type="submit" name="create">
         </form>
@@ -87,13 +87,29 @@
                 </tr>
             </tfoot>
         </table>
-        <p>O animal mais alto é <span class="highest"></span></p>
-        <p>O animal mais pesado é <span class="heaviest"></span></p>
-        <p>O animal mais veloz é <span class="fastest"></span></p>
-        <p>O animal mais longevo é <span class="longest"></span></p>
+        <p>O animal mais alto é o(a) <span id="highest"></span>.</p>
+        <p>O animal mais pesado é o(a) <span id="heaviest"></span>.</p>
+        <p>O animal mais veloz é o(a) <span id="fastest"></span>.</p>
+        <p>O animal mais longevo é o(a) <span id="longest"></span>.</p>
         <p>Existem <span></span> acima da média de peso</p>
         <script type="text/javascript">
             var animalsList = [];
+
+            var highestElem = document.getElementById("highest");
+            var highestName = "";
+            var highestValue = 0;
+
+            var heaviestElem = document.getElementById("heaviest");
+            var heaviestName = "";
+            var heaviestValue = 0;
+
+            var fastestElem = document.getElementById("fastest");
+            var fastestName = "";
+            var fastestValue = 0;
+
+            var longestElem = document.getElementById("longest");
+            var longestName = "";
+            var longestValue = 0;
 
             var animalsElem = document.getElementById("animals");
             var form = document.getElementById("form");
@@ -101,12 +117,37 @@
                 e.preventDefault();
                 var newAnimal = {
                     "animal": form.elements["animal"].value,
-                    "height": form.elements["height"].value,
-                    "weight": form.elements["weight"].value,
-                    "speed": form.elements["speed"].value,
-                    "age": form.elements["age"].value,
+                    "height": parseFloat(form.elements["height"].value),
+                    "weight": parseFloat(form.elements["weight"].value),
+                    "speed": parseFloat(form.elements["speed"].value),
+                    "age": parseInt(form.elements["age"].value),
                 }
                 animalsList.push(newAnimal);
+
+                if (highestValue < newAnimal.height)
+                {
+                    highestName = newAnimal.animal;
+                    highestValue = newAnimal.height;
+                    highestElem.textContent = highestName;
+                }
+                if (heaviestValue < newAnimal.weight)
+                {
+                    heaviestName = newAnimal.animal;
+                    heaviestValue = newAnimal.weight;
+                    heaviestElem.textContent = heaviestName;
+                }
+                if (fastestValue < newAnimal.speed)
+                {
+                    fastestName = newAnimal.animal;
+                    fastestValue = newAnimal.speed;
+                    fastestElem.textContent = fastestName;
+                }
+                if (longestValue < newAnimal.age)
+                {
+                    longestName = newAnimal.animal;
+                    longestValue = newAnimal.age;
+                    longestElem.textContent = longestName;
+                }
 
                 var newAnimalTr = document.createElement("tr");
 
