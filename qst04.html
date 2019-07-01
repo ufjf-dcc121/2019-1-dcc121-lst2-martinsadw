@@ -48,15 +48,15 @@
             </label><br />
             <label>
                 Altura:
-                <input type="number" name="height" step="any" min="0">
+                <input type="number" name="height" step="0.01" min="0">
             </label><br />
             <label>
                 Peso:
-                <input type="number" name="weight" step="any" min="0">
+                <input type="number" name="weight" step="0.01" min="0">
             </label><br />
             <label>
                 Velocidade:
-                <input type="number" name="speed" step="any" min="0">
+                <input type="number" name="speed" step="0.01" min="0">
             </label><br />
             <label>
                 Idade máxima:
@@ -78,7 +78,7 @@
             <tbody id="animals">
             </tbody>
             <tfoot>
-                <tr>
+                <tr id="mean">
                     <td>Média</td>
                     <td>0</td>
                     <td>0</td>
@@ -111,7 +111,14 @@
             var longestName = "";
             var longestValue = 0;
 
+            var sumHeight = 0;
+            var sumWeight = 0;
+            var sumSpeed = 0;
+            var sumAge = 0;
+
             var animalsElem = document.getElementById("animals");
+            var meanElem = document.getElementById("mean");
+
             var form = document.getElementById("form");
             form.addEventListener("submit", function(e) {
                 e.preventDefault();
@@ -122,6 +129,10 @@
                     "speed": parseFloat(form.elements["speed"].value),
                     "age": parseInt(form.elements["age"].value),
                 }
+
+                if (!newAnimal.animal || !newAnimal.height || !newAnimal.weight || !newAnimal.speed || !newAnimal.age)
+                    return;
+
                 animalsList.push(newAnimal);
 
                 if (highestValue < newAnimal.height)
@@ -149,6 +160,11 @@
                     longestElem.textContent = longestName;
                 }
 
+                sumHeight += newAnimal.height;
+                sumWeight += newAnimal.weight;
+                sumSpeed += newAnimal.speed;
+                sumAge += newAnimal.age;
+
                 var newAnimalTr = document.createElement("tr");
 
                 var newAnimalName = document.createElement("td");
@@ -172,6 +188,11 @@
                 newAnimalTr.appendChild(newAnimalAge);
 
                 animalsElem.appendChild(newAnimalTr);
+
+                meanElem.children[1].textContent = Math.round((sumHeight / animalsList.length) * 100) / 100;
+                meanElem.children[2].textContent = Math.round((sumWeight / animalsList.length) * 100) / 100;
+                meanElem.children[3].textContent = Math.round((sumSpeed / animalsList.length) * 100) / 100;
+                meanElem.children[4].textContent = Math.round((sumAge / animalsList.length) * 100) / 100;
             });
         </script>
     </body>
