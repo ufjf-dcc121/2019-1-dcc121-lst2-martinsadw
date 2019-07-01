@@ -91,7 +91,7 @@
         <p>O animal mais pesado é o(a) <span id="heaviest"></span>.</p>
         <p>O animal mais veloz é o(a) <span id="fastest"></span>.</p>
         <p>O animal mais longevo é o(a) <span id="longest"></span>.</p>
-        <p>Existem <span></span> acima da média de peso</p>
+        <p><span id="heavy"></span> acima da média de peso</p>
         <script type="text/javascript">
             var animalsList = [];
 
@@ -118,6 +118,7 @@
 
             var animalsElem = document.getElementById("animals");
             var meanElem = document.getElementById("mean");
+            var heavyElem = document.getElementById("heavy");
 
             var form = document.getElementById("form");
             form.addEventListener("submit", function(e) {
@@ -193,6 +194,14 @@
                 meanElem.children[2].textContent = Math.round((sumWeight / animalsList.length) * 100) / 100;
                 meanElem.children[3].textContent = Math.round((sumSpeed / animalsList.length) * 100) / 100;
                 meanElem.children[4].textContent = Math.round((sumAge / animalsList.length) * 100) / 100;
+
+                meanWeight = sumWeight / animalsList.length;
+                quantHeavyAnimals = animalsList.reduce(function(acc, cur) {
+                    return (cur.weight <= meanWeight ? acc : acc + 1);
+                }, 0);
+                heavyElem.textContent = (quantHeavyAnimals == 1 ? "Existe " : "Existem ") +
+                                        quantHeavyAnimals +
+                                        (quantHeavyAnimals == 1 ? " animal" : " animais");
             });
         </script>
     </body>
